@@ -24,9 +24,10 @@ This orb attempts to improve upon the the legacy `notify: webhook` functionality
 
 ## Caveats
 
-The legacy webhook mocked the entire payload of our API v1.1 job results.  This orb author feels that a minimal payload with reference to lookup full job info is preferred.
+The legacy webhook mocked the entire payload of our API v1.1 job results.  This orb contains a minimal payload with reference to lookup full job (via `api_link`) if aditional fields are required.
 
-If you depend on those fields, reference `api_link` from this webhook for the full details.
+Please let me know by adding comments to #1 if you're missing a few specific fields or feel strongly about that decision.
+
 
 ## Feedback
 
