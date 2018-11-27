@@ -1,0 +1,49 @@
+parameters:
+  endpoint:
+    type: string
+    description: "Full URL to POST webhook payload"
+  on_failure:
+    type: boolean
+    default: true
+    description: "Should we send on failures?"
+  on_success:
+    type: boolean
+    default: true
+    description: "Should we send on Sucesses?"
+steps:
+  - run:
+      when: always
+      name: Bundle build info into webhook payload
+      command: |
+         echo '{}' | jq '{
+            "build_num": env.CIRCLE_BUILD_NUM,
+            "job": env.CIRCLE_JOB,
+            "build_url": env.CIRCLE_BUILD_URL,
+            "commit_hash": env.CIRCLE_SHA1,
+            "repo": (env.CIRCLE_PROJECT_USERNAME + "/" + env.CIRCLE_PROJECT_REPONAME),
+            "workflow_id": env.CIRCLE_WORKFLOW_ID,
+            "workflow_url": ("https://circleci.com/workflow-run/" + env.CIRCLE_WORKFLOW_ID),
+            "pull_request": env.CI_PULL_REQUEST,
+            "user": env.CIRCLE_USERNAME,
+            "status":"unknown"
+          }' > /tmp/raw-webhook.json
+
+  - when:
+      condition: <<parameters.on_success>>
+      steps:
+        - run:
+            when: on_success
+            name: Notify <<parameters.endpoint>> with Success Webhook
+            command: |
+               cat /tmp/raw-webhook.json | jq '.status="success"' > /tmp/webhook.json
+               curl -X POST -d @/tmp/webhook.json "<<parameters.endpoint>>"
+
+  - when:
+      condition: <<parameters.on_failure>>
+      steps:
+        - run:
+            when: on_fail
+            name: Notify <<parameters.endpoint>> with Failure Webhook
+            command: |
+               cat /tmp/raw-webhook.json | jq '.status="fail"'  > /tmp/webhook.json
+               curl -X POST -d @/tmp/webhook.json "<<parameters.endpoint>>"

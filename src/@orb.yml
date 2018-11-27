@@ -1,0 +1,2 @@
+version: 2.1
+description: Sends a webhook payload to specified endpoint.
