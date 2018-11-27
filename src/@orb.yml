@@ -1,2 +1,21 @@
 version: 2.1
 description: Sends a webhook payload to specified endpoint.
+
+
+examples:
+  basic_example:
+    description: Send webhook on success or failue (default)
+    usage:
+      version: 2.1
+      orbs:
+        webhook: eddiewebb/webhook@volatile
+      jobs:
+        build:
+              docker:
+                - image: circleci/node:10
+              working_directory: ~/repo
+              steps:
+                  - run: echo "hi"
+                  - webhook/notify:
+                      endpoint: "https://postb.in/7RFuDLos"
+
