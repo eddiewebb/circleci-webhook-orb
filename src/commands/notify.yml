@@ -18,7 +18,7 @@ steps:
          echo '{}' | jq '{
             "build_num": env.CIRCLE_BUILD_NUM,
             "branch": env.CIRCLE_BRANCH,
-            "username": env.CIRCLE_USERNAME
+            "username": env.CIRCLE_USERNAME,
             "job": env.CIRCLE_JOB,
             "build_url": env.CIRCLE_BUILD_URL,
             "vcs_revision": env.CIRCLE_SHA1,
@@ -27,7 +27,7 @@ steps:
             "workflow_url": ("https://circleci.com/workflow-run/" + env.CIRCLE_WORKFLOW_ID),
             "pull_request": env.CI_PULL_REQUEST,
             "user": env.CIRCLE_USERNAME,
-            "api_link":("https://circleci.com/api/v1.1/project/" + env.CIRCLE_PROJECT_USERNAME + "/" + env.CIRCLE_PROJECT_REPONAME + "/" + env.CIRCLE_BUILD_NUM)
+            "api_link":("https://circleci.com/api/v1.1/project/" + env.CIRCLE_PROJECT_USERNAME + "/" + env.CIRCLE_PROJECT_REPONAME + "/" + env.CIRCLE_BUILD_NUM),
             "status":"unknown"
           }' > /tmp/raw-webhook.json
 
