@@ -1,6 +1,6 @@
 # Webhook Orb
 
-This orb attempts to improve upon the the legacy `notify: webhook` functionality of CircleCI.
+This orb attempts to simplify and transition from the legacy `notify: webhook` functionality of CircleCI.
 
 ## Sample Output
 
