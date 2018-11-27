@@ -26,7 +26,7 @@ This orb attempts to improve upon the the legacy `notify: webhook` functionality
 
 The legacy webhook mocked the entire payload of our API v1.1 job results.  This orb contains a minimal payload with reference to lookup full job (via `api_link`) if aditional fields are required.
 
-Please let me know by adding comments to #1 if you're missing a few specific fields or feel strongly about that decision.
+Please [let me know by adding comments the discussion](https://github.com/eddiewebb/circleci-webhook-orb/issues/1) if you're missing a few specific fields or feel strongly about that decision.
 
 
 ## Feedback
